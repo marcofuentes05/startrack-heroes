@@ -10,11 +10,9 @@ export const fetchHeroesStarted = () : Action => ({
   payload: {},
 })
 
-export const fetchHeroesFailed = (error: string) : Action => ({
+export const fetchHeroesFailed = (error: object) : Action => ({
   type: types.FETCH_HEROES_FAILED,
-  payload: {
-    text: error,
-  },
+  payload: error
 })
 
 export const fetchHeroesSucceeded = (data: Object) : Action => ({

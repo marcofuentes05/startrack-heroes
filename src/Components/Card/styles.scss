@@ -1,0 +1,39 @@
+.my-card-container {
+  margin: 0 15px !important ;
+  border-radius: 20px !important;
+  .my-card {
+    border-radius: 20px !important;
+    // background-color: green;
+    backdrop-filter: blur(15px);
+    .my-image {
+      width: 105px !important;
+      height: 140px !important;
+      background-color: transparent !important;
+      border: 0 !important;
+      border-radius: 15px !important;
+      margin-left: 15px;
+      align-self: center;
+    }
+    .my-card-text {
+      font-family: 'Poppins', sans-serif;
+      text-align: left;
+      padding-left: 15px;
+      .name {
+        font-weight: bold;
+      }
+      .real-name{
+        margin-right: 0 !important;
+        font-size: 12px;
+        line-height: 18px;
+        letter-spacing: 0.273085px;
+        // width: 80% !important;
+      }
+      .rating {
+        margin-right: 0 !important;
+        font-size: 10px;
+        line-height: 18px;
+        letter-spacing: 0.273085px;
+      }
+    }
+  }
+}
