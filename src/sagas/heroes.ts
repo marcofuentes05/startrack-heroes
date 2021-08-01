@@ -14,7 +14,6 @@ function* fetchHeroesStart(){
         method: 'GET',
       }
     );
-    console.log(response)
     if (response.status === 200) {
       const jsonResponse = yield response.json()
       yield put(actions.fetchHeroesSucceeded(jsonResponse));
@@ -26,7 +25,6 @@ function* fetchHeroesStart(){
       }));
     }
   } catch(error) {
-    console.log(error)
     yield put(actions.fetchHeroesFailed(error));
   }
 }

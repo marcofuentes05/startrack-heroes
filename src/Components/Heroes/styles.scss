@@ -1,0 +1,31 @@
+.my-row-heroes {
+  height: 100% !important;
+} 
+
+.my-list-container {
+  padding: 0 7vw !important;
+}
+
+.search-container{
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  
+  input {
+    color: white;
+    border: 0 !important;
+    width: 15vw !important;
+    height: 40px !important;
+    align-self: center;
+    background-color: transparent;
+    padding-left: 0 !important;
+    &:focus {
+      border: 0 !important;
+      outline: none !important;
+    } 
+  }
+  
+  .search-icon {
+    // height: 40px !important;
+    width: 50px !important;
+  }
+}

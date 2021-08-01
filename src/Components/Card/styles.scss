@@ -1,38 +1,84 @@
 .my-card-container {
-  margin: 0 15px !important ;
-  border-radius: 20px !important;
-  .my-card {
-    border-radius: 20px !important;
-    // background-color: green;
-    backdrop-filter: blur(15px);
-    .my-image {
-      width: 105px !important;
-      height: 140px !important;
-      background-color: transparent !important;
-      border: 0 !important;
-      border-radius: 15px !important;
-      margin-left: 15px;
-      align-self: center;
+  padding: 5px 5px !important ;
+  height: 100% !important;
+  position: relative;
+  .is-last {
+    position: absolute;
+    right: 0 !important;
+    z-index: 1;
+    color: white;
+    font-weight: bold;
+    background-color: #807CFB;
+    height: 20px !important;
+    width:40% !important;
+    font-size: 10px !important;
+    margin: 0 !important;
+    border-radius: 15px !important;
+    vertical-align: center;
+    align-self: flex-end;
+    p{
+      text-align: center;
+      padding: 2px 0 0 0 !important;
     }
-    .my-card-text {
-      font-family: 'Poppins', sans-serif;
-      text-align: left;
-      padding-left: 15px;
-      .name {
-        font-weight: bold;
+  }
+  .background {
+    height: 100% !important;
+    border-radius: 10px !important;
+    .my-card {
+      height: 100% !important;
+      border-radius: 10px !important;
+      backdrop-filter: blur(15px);
+      width: 100% !important;
+      .my-image {
+        width: 105px !important;
+        height: 140px !important;
+        background-color: transparent !important;
+        border: 0 !important;
+        border-radius: 15px !important;
+        margin-left: 15px;
+        align-self: center;
       }
-      .real-name{
-        margin-right: 0 !important;
-        font-size: 12px;
-        line-height: 18px;
-        letter-spacing: 0.273085px;
-        // width: 80% !important;
+      
+      .small-heart {
+        position: absolute;
+        padding: 10px !important;
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 30px;
+        background-color: #6A4DBC;
+        align-self: flex-end;
+        left: 90px;
+        bottom: 15px;
+        z-index: 1 !important;
       }
-      .rating {
-        margin-right: 0 !important;
-        font-size: 10px;
-        line-height: 18px;
-        letter-spacing: 0.273085px;
+      .my-card-text {
+        text-align: left;
+        padding-left: 15px;
+        color: white;
+        vertical-align: center;
+        margin: 10% 0 0 0;
+        overflow: hidden;
+        h6 {
+          // font-family: 'PoppinsBold', sans-serif;
+          font-weight: 700 !important;
+        }
+
+        p {
+          margin: 0 !important;
+        }
+        .real-name{
+          margin-right: 0 !important;
+          font-size: 12px;
+          line-height: 18px;
+          letter-spacing: 0.273085px;
+          margin-bottom: 10px !important;
+        }
+        .rating {
+          margin-right: 0 !important;
+          font-size: 10px;
+          line-height: 18px;
+          letter-spacing: 0.273085px;
+        }
       }
     }
   }

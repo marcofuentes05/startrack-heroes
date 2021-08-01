@@ -10,10 +10,29 @@ heroes: {
 }
 */
 
-const data = (state={}, action: Action): Object => {
+const data = (state=[], action: Action): Object => {
   switch (action.type) {
     case types.FETCH_HEROES_SUCCEEDED: {
       return action.payload;
+    }
+    // case likeTypes.LIKE_HERO: {
+      // return state.filter(value => value.id !== action.payload)
+    // }
+    default: {
+      return state;
+    }
+  }
+}
+
+const dataObjects = (state={}, action: Action): Object => {
+  switch (action.type) {
+    case types.FETCH_HEROES_SUCCEEDED: {
+      const newState = {};
+      action.payload.map(value => {
+        newState[value.id] = value;
+        return 1;
+      });
+      return newState;
     }
     default: {
       return state;
@@ -50,9 +69,11 @@ const error = (state={}, action: Action) : Object => {
 export default combineReducers({
   data,
   isFetching,
-  error
+  error,
+  dataObjects,
 });
 
-export const getData = (state: HeroesState):Object => state.data;
+export const getData = (state: HeroesState): Object => state.data;
+export const getDataObject = (state, id): Object => state.dataObjects[id];
 export const getIsFetching = (state: HeroesState):Object => state.isFetching;
 export const getError = (state: HeroesState):Object => state.error;
