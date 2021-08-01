@@ -8,7 +8,7 @@ import { GeneralState } from '../../interfaces';
 import { Collapse } from 'react-collapse';
 import Card from '../Card';
 
-import { FixedSizeList as List } from 'react-window';
+import { FixedSizeList as List, FixedSizeGrid as Grid } from 'react-window';
 import mediumHeart from '../../assets/medium-heart/medium-heart.svg'
 import arrowUp from '../../assets/arrow-up/arrow-up.svg'
 import bigHeart from '../../assets/big-heart/big-heart.svg'
@@ -21,42 +21,34 @@ interface LikedProps{
   notCollapse: () => void,
 }
 
-const CoreRow = ({ index, style, data }) => {
-  const dataRow = data.slice(index * 4, index * 4 + 4);
+const CoreCell = ({ columnIndex, rowIndex, style, data }) => {
+  const value = data.likedHeroes[rowIndex * 4 + columnIndex];
+  console.log(data);
   return (
-    <div style={style}>
-      <div className="row g-0 my-row-heroes">
-        {
-          dataRow.map((value, insideIndex) => (
-            <Card
-              images={value.images}
-              name={value.name}
-              real_name={value.biography.fullName}
-              rating={calculatePowerScore(value.powerstats)}
-              id={value.id}
-              liked={true}
-              isLast={index*4+insideIndex === dataRow.length-1}
-            />
-          ))
-        }
-      </div>
-    </div>
-  );
+    value ? <div style={style}>
+      <Card
+        images={value.images}
+        name={value.name}
+        real_name={value.biography.fullName}
+        rating={calculatePowerScore(value.powerstats)}
+        id={value.id}
+        liked={true}
+        isLast={rowIndex*4 + columnIndex === data.likedHeroes.length -1}
+      />
+    </div> : <></>
+  )
 }
-
-const Row = connect(
-  (state: GeneralState) => ({
-    data: selectors.getLikedObjects(state),
-  })
-)(CoreRow)
 
 const CoreLiked:FC<LikedProps> = (props) => {
   const {
     likedLength,
     collapsed,
+    data,
     notCollapse
   } = props;
   const {width, height} = useWindowDimensions();
+  const colCount = width<=1440 ? 4 : 6
+  const rowCount = ((likedLength/colCount) + 1)|0
   return (
     <div className={`row liked-container ${!collapsed && 'collapsed'}`}>
       <div className="col">
@@ -82,14 +74,19 @@ const CoreLiked:FC<LikedProps> = (props) => {
               ) : (
                 <div className="col">
                   <div className="row">
-                    <List
-                      height={height * 3 / 4}
-                      itemCount={(likedLength/4)+1}
-                      itemSize={height * 2 / 7}
-                      width={width * 5 / 6}
-                    >
-                      {Row}
-                    </List>
+                      <Grid
+                        columnCount={colCount}
+                        columnWidth={colCount===4 ? width * 0.19 : width*0.15}
+                        height={height /2}
+                        rowCount={rowCount}
+                        rowHeight={colCount ===4 ? height * 2 / 7 : height*0.15}
+                        width={width * 5 / 6}
+                        itemData={{
+                          likedHeroes: data,
+                        }}
+                      >
+                        {CoreCell}
+                      </Grid>
                   </div>
                 </div>
               )
@@ -103,6 +100,7 @@ const CoreLiked:FC<LikedProps> = (props) => {
 
 export default connect(
   (state: GeneralState) => ({
+    data: selectors.getLikedObjects(state),
     likedLength: selectors.getLikedLength(state),
     collapsed: selectors.getCollapsed(state),
   }),
