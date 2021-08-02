@@ -1,6 +1,14 @@
 .collapsed {
   background-color: #6A4DBC47 !important;
-;
+}
+
+@keyframes fadeIn {
+  from {
+  	opacity: 0;
+  }
+  to {
+ 	opacity: 1;
+  }
 }
 
 .liked-container {
@@ -9,6 +17,7 @@
   border-radius: 15px;
   border:1px solid #6A4DBC !important;
   padding: 0 15px;
+  animation: fadeIn 0.4s ease-in;
   .normal-arrow {
     transition: all 0.3s ease !important;
     transform: rotate(0deg);

@@ -12,12 +12,13 @@ import { calculatePowerScore, useWindowDimensions } from '../../utils';
 
 interface HeroesListProps {
   getHeroes: () => void,
-  heroesList: [Object],
+  heroesList: Object[],
   heroesListIsFetching: boolean,
 }
 
 const CoreCell =  ({columnIndex, rowIndex, style, data }) => {
-  const value = data.heroesList[rowIndex*4 + columnIndex];
+  const { width } = useWindowDimensions();
+  const value = data.heroesList[rowIndex*(width<=1440 ? 4 : 5) + columnIndex];
   return (
     <div style={style}>
       {/* <div className="row g-0 my-row-heroes"> */}
@@ -35,29 +36,6 @@ const CoreCell =  ({columnIndex, rowIndex, style, data }) => {
   )
 }
 
-const Row = ({ index, style, data }) => {
-  const dataRow = data.heroesList.slice(index*4, index*4+4);
-  return (
-    <div style={style}>
-      <div className="row g-0 my-row-heroes">
-        {
-          dataRow.map(value => (
-            <Card 
-              images={value.images}
-              name={value.name} 
-              real_name={value.biography.fullName}
-              rating={calculatePowerScore(value.powerstats)}
-              id={value.id}
-              liked={false}
-              isLast={false}
-            />
-          ))
-        }
-      </div>
-    </div>
-  );
-}
-
 const Heroes:FC<HeroesListProps> =(props) => {
   const {
     getHeroes,
@@ -69,7 +47,7 @@ const Heroes:FC<HeroesListProps> =(props) => {
   let heroesListFiltered = heroesList.filter(
     (element) => element.name.toUpperCase().indexOf(searchText.toUpperCase()) >= 0 || element.biography.fullName.toUpperCase().indexOf(searchText.toUpperCase()) >= 0 )
   const { width, height } = useWindowDimensions();
-  const colCount = width <= 1440 ? 4 : 6
+  const colCount = width <= 1440 ? 4 : 5
   const rowCount = ((heroesList.length / colCount) + 1) | 0
   return(
     <div className="row my-list-container">
@@ -103,7 +81,7 @@ const Heroes:FC<HeroesListProps> =(props) => {
                 height={height * 3/4}
                 rowCount={rowCount}
                 rowHeight={colCount===4 ? height * 2/7 : height*0.15}
-                width={width*5/6}
+                width={width*5/5}
                 itemData={{
                   heroesList: heroesListFiltered
                 }}

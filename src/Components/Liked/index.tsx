@@ -8,7 +8,7 @@ import { GeneralState } from '../../interfaces';
 import { Collapse } from 'react-collapse';
 import Card from '../Card';
 
-import { FixedSizeList as List, FixedSizeGrid as Grid } from 'react-window';
+import { FixedSizeGrid as Grid } from 'react-window';
 import mediumHeart from '../../assets/medium-heart/medium-heart.svg'
 import arrowUp from '../../assets/arrow-up/arrow-up.svg'
 import bigHeart from '../../assets/big-heart/big-heart.svg'
@@ -22,8 +22,8 @@ interface LikedProps{
 }
 
 const CoreCell = ({ columnIndex, rowIndex, style, data }) => {
-  const value = data.likedHeroes[rowIndex * 4 + columnIndex];
-  console.log(data);
+  const {width} = useWindowDimensions();
+  const value = data.likedHeroes[rowIndex * (width<=1440 ? 4 : 5) + columnIndex];
   return (
     value ? <div style={style}>
       <Card
@@ -47,7 +47,7 @@ const CoreLiked:FC<LikedProps> = (props) => {
     notCollapse
   } = props;
   const {width, height} = useWindowDimensions();
-  const colCount = width<=1440 ? 4 : 6
+  const colCount = width<=1440 ? 4 : 5
   const rowCount = ((likedLength/colCount) + 1)|0
   return (
     <div className={`row liked-container ${!collapsed && 'collapsed'}`}>
@@ -77,10 +77,10 @@ const CoreLiked:FC<LikedProps> = (props) => {
                       <Grid
                         columnCount={colCount}
                         columnWidth={colCount===4 ? width * 0.19 : width*0.15}
-                        height={height /2}
+                        height={height /3}
                         rowCount={rowCount}
                         rowHeight={colCount ===4 ? height * 2 / 7 : height*0.15}
-                        width={width * 5 / 6}
+                        width={width * 5 / 5}
                         itemData={{
                           likedHeroes: data,
                         }}

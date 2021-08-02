@@ -1,8 +1,21 @@
+@keyframes show{
+  0%{
+    transform: scale(0);
+  }
+  80%{
+    transform: scale(1.1);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+
 .my-card-container {
   padding: 5px 5px !important ;
   height: 100% !important;
   width: 100% !important;
   position: relative;
+  animation: show 0.5s ease-in;
   .is-last {
     position: absolute;
     right: 0 !important;

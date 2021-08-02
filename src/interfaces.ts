@@ -12,7 +12,7 @@ export interface HeroesState {
 
 export interface GeneralState {
   heroes: HeroesState,
-  liked: [number],
+  liked: number[],
   collapsed: boolean,
 }
 
